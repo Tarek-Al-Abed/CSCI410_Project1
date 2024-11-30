@@ -15,7 +15,7 @@ class _HomeState extends State<Home> {
   void calculateCost() {
     double rate = callType == 'Local' ? 0.5 : 1.5;
     double cost = rate * callDuration;
-    if (hasOffer) cost *= 0.9;
+    if (hasOffer) cost *= 0.9; // Apply 10% discount if checked
     setState(() {
       totalCost = cost;
     });
@@ -30,6 +30,7 @@ class _HomeState extends State<Home> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+              // Call Type Selection
             Row(
               children: [
                 Radio(
@@ -47,7 +48,8 @@ class _HomeState extends State<Home> {
                 Text('Global'),
               ],
             ),
-            SizedBox(height: 10),
+            SizedBox(height: 10), 
+             // Call Duration Input
             TextField(
               keyboardType: TextInputType.number,
               decoration: InputDecoration(
@@ -58,6 +60,7 @@ class _HomeState extends State<Home> {
                   setState(() => callDuration = int.tryParse(value) ?? 0),
             ),
             SizedBox(height: 10),
+             // Discount Checkbox
             Row(
               children: [
                 Checkbox(
@@ -68,6 +71,7 @@ class _HomeState extends State<Home> {
               ],
             ),
             SizedBox(height: 10),
+             // Calculate Button
             Center(
               child: ElevatedButton(
                 onPressed: calculateCost,
@@ -75,6 +79,7 @@ class _HomeState extends State<Home> {
               ),
             ),
             SizedBox(height: 20),
+            // Display Total Cost
             Text(
               'Total Cost: \$${totalCost.toStringAsFixed(2)}',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
